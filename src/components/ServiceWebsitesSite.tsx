@@ -1348,22 +1348,56 @@ export const ServiceWebsitesSite: React.FC<ServiceWebsitesSiteProps> = ({
               </button>
             </div>
 
-            {/* Google Business Profile Card */}
+            {/* Google & ChatGPT Business Profile Management Card */}
             <div
-              className={`p-6 rounded-3xl border space-y-3 ${
+              className={`p-6 rounded-3xl border space-y-4 ${
                 isLight ? 'bg-white border-slate-200 shadow-sm' : 'bg-[#111623] border-slate-800'
               }`}
             >
-              <h4 className={`text-lg font-serif font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
-                Google Business Profile Management
-              </h4>
-              <p className={`text-xs leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
-                Setup, updates, geo-tagged photo posts and review management to dominate local
-                Google Maps search in your town.
-              </p>
-              <span className="text-xs font-bold text-amber-500 dark:text-amber-300 block pt-1">
-                Local SEO Optimised →
-              </span>
+              <div className="space-y-2">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h4 className={`text-lg font-serif font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                    Google Business Profile Management services
+                  </h4>
+                  <span className="text-xs font-black text-emerald-600 dark:text-emerald-400 whitespace-nowrap">
+                    R300/month
+                  </span>
+                </div>
+                <p className={`text-xs leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+                  Setup, updates, geo-tagged photo posts and review management to dominate local
+                  Google Maps search in your town.
+                </p>
+              </div>
+
+              <div
+                className={`pt-3.5 border-t space-y-2 ${
+                  isLight ? 'border-slate-200/80' : 'border-slate-800'
+                }`}
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h5 className={`text-base font-serif font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                    <span className="text-xs font-black uppercase tracking-wider text-blue-600 dark:text-amber-400 mr-1.5">
+                      New
+                    </span>
+                    ChatGPT Business Profiles Management services
+                  </h5>
+                  <span className="text-xs font-black text-emerald-600 dark:text-emerald-400 whitespace-nowrap">
+                    R500/month
+                  </span>
+                </div>
+                <p className={`text-xs leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+                  Structured entity data, AEO/GEO optimisation and citation signals so ChatGPT,
+                  Gemini and AI search assistants recommend your business locally.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => handleNavigatePage('google-chatgpt-business-profiles')}
+                className="text-xs font-bold text-amber-500 dark:text-amber-300 hover:underline inline-flex items-center gap-1 pt-1 cursor-pointer"
+              >
+                <span>Local SEO &amp; AI Search Optimised →</span>
+              </button>
             </div>
 
             {/* E-Commerce Card */}
@@ -1766,6 +1800,22 @@ export const ServiceWebsitesSite: React.FC<ServiceWebsitesSiteProps> = ({
                 q: 'Where is Service Websites located and can we meet in person?',
                 a: 'Our agency is physically located on Moumo Street, Tlhabane, Rustenburg, 0309, right between Tlhabane Police Station and Netcare Ferncrest Hospital. We serve businesses throughout Rustenburg, North West, Gauteng, and nationwide via WhatsApp, phone, and in-person consultations.',
               },
+              {
+                q: 'Is there a free website design?',
+                a: 'Yes, we design free trial websites.\nIt becomes free if we manage your Google Business Profile with our services.',
+              },
+              {
+                q: 'How much does it cost to build a website in South Africa?',
+                a: 'It depends on your business services.\nOur professional 5 page website starts at R3,000 including Local SEO and WhatsApp integration.\nThey become live after 24 hrs of your booking or buying.\n1 year full tech support guarantee.',
+              },
+              {
+                q: 'How much does it cost to build a website in South Africa?',
+                a: 'Website design in South Africa starts at R3,500, we sell them cheaper by far.',
+              },
+              {
+                q: 'Can I learn web design in 3 months?',
+                a: 'Yes, most beginners are able to build deliverable websites to business owners.',
+              },
             ].map((faq, index) => {
               const isOpen = openFaqIndex === index;
               return (
@@ -2123,6 +2173,30 @@ export const ServiceWebsitesSite: React.FC<ServiceWebsitesSiteProps> = ({
                     className="text-left font-semibold text-amber-600 dark:text-amber-300 hover:underline transition-colors cursor-pointer inline-block"
                   >
                     Use Cases &amp; Performance Reports
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#page-5-things-small-service-business-needs-online-2027"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigatePage('5-things-small-service-business-needs-online-2027');
+                    }}
+                    className="text-left font-semibold text-blue-600 dark:text-amber-300 hover:underline transition-colors cursor-pointer inline-block"
+                  >
+                    5 Things your small service business needs online to get bookings in 2027
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#page-listicals"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigatePage('listicals');
+                    }}
+                    className="text-left font-semibold text-amber-600 dark:text-amber-300 hover:underline transition-colors cursor-pointer inline-block"
+                  >
+                    Listicals (Packages, Reviews &amp; Free Audit)
                   </a>
                 </li>
                 <li>

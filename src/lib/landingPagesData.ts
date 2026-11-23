@@ -282,6 +282,128 @@ export const LANDING_PAGES: LandingPageItem[] = [
     ctaText: 'Describe your current operational bottleneck and we will design a digital fix.'
   },
 
+  // 4B. 5 Things your small service business needs online to get bookings in 2027
+  {
+    slug: '5-things-small-service-business-needs-online-2027',
+    title: '5 Things your small service business needs online to get bookings in 2027',
+    category: 'Company',
+    categoryGroup: 'company',
+    metaDescription: '5 essential tools your small service business needs online in 2027: mobile-first WhatsApp websites from R3,000, Local SEO, CRM & Portal software, online booking calendars, and consistent social media.',
+    badge: '2027 Bookings Guide',
+    headline: '5 Things Your Small Service Business Needs Online to Get Bookings in 2027',
+    subheadline: 'Plumbers, cleaners, electricians and contractors lose jobs every week to a competitor who is easier to find and easier to contact. See each essential and its transparent ZAR cost.',
+    readTime: '5 min read',
+    overview: [
+      'Most South African customers search on a phone and message on WhatsApp. A good-looking website nobody finds earns nothing, and messy spreadsheets or unanswered calls cost booked jobs every day.',
+      'These five practical essentials cover everything needed to turn local Rustenburg and South African searches into confirmed WhatsApp enquiries, automated bookings, and repeat clients—with clear pricing in rand.'
+    ],
+    features: [
+      {
+        title: '1. Fast, Mobile-First Website + WhatsApp Enquiries (From R3,000)',
+        description: 'Custom design, mobile responsive with a WhatsApp lead form, SSL certificate, 1 year full tech support included, and live in as little as 7 days.',
+        iconName: 'MessageCircle'
+      },
+      {
+        title: '2. Local SEO & Google Business Profile (Included)',
+        description: 'Your own yourname.co.za domain, SEO, AEO and GEO optimisation built into every page, plus Google Business Profile setup and optimisation.',
+        iconName: 'MapPin'
+      },
+      {
+        title: '3. CRM, Clients Portal & Project Management (R300/mo each or R999/mo)',
+        description: 'Keep every lead, WhatsApp contact log, invoice, document, task board and milestone update organized in one place.',
+        iconName: 'LayoutDashboard'
+      },
+      {
+        title: '4. Online Booking System & 5. Social Posting',
+        description: '24/7 calendar & bookings with customer login included in the Blogs package from R4,000, plus 4 social posts/month per platform at R100/month.',
+        iconName: 'Clock'
+      }
+    ],
+    deliverables: [
+      'Custom mobile-first website with WhatsApp enquiry form (from R3,000)',
+      'Local SEO, AEO, GEO & Google Business Profile setup included',
+      'Optional CRM, Clients Portal & Project Management software bundle (R999/mo)',
+      'Calendar & online booking system (included in Blogs package from R4,000)',
+      'Steady social posting on Facebook, X, Instagram, LinkedIn, Reddit & TikTok (R100/mo per platform)'
+    ],
+    pricingEstimate: 'Websites from R3,000 · Bookings/Blogs from R4,000',
+    turnaroundTime: 'Live in as little as 7 days',
+    targetAudience: 'Plumbers, cleaners, electricians, contractors, and South African small service businesses.',
+    faq: [
+      {
+        question: 'What is included in the R3,000 small service business website?',
+        answer: 'A custom mobile-first design (never a generic template), WhatsApp lead form, SSL certificate, Local SEO + AEO + GEO optimisation, Google Business Profile setup, and 1 year full tech support.'
+      },
+      {
+        question: 'How does the online booking system work with the CRM?',
+        answer: 'Included in our Blogs package from R4,000, customers can log in, sign up, and pick an open calendar slot 24/7. Every booking pairs with the CRM so it automatically becomes a client record.'
+      }
+    ],
+    ctaHeading: 'Ready to Win More 2027 Bookings?',
+    ctaText: 'Start with a free WhatsApp audit or choose the website, booking, CRM, and social package that fits your business.'
+  },
+
+  // 4C. Listicals (Packages, Reviews & Free Business Audit)
+  {
+    slug: 'listicals',
+    title: 'Listicals',
+    category: 'Company',
+    categoryGroup: 'company',
+    metaDescription: 'Explore Service Websites Agency listicals & transparent ZAR packages: Business Services from R3,000, Blogs & Bookings from R4,000, E-commerce from R5,000, verified Rustenburg reviews, and free WhatsApp business audit.',
+    badge: 'Listicals & Transparent Packages',
+    headline: 'Listicals: Packages, Package Breakdown, Client Reviews & Free Audit',
+    subheadline: 'Start with a free audit, compare our 3 turnkey packages in rand with zero hidden fees, read 47 verified 5.0-star Rustenburg reviews, and see why service businesses choose each tier.',
+    readTime: '5 min read',
+    overview: [
+      'Every package includes 1 full year of tech support, clean South African rand pricing with zero hidden fees, and add-on options for business software (R300/month each or R999/month for all three) and social media posting (R100/month per platform).',
+      'Compare Business Services (10-page website including listicle page and blog page from R3,000), Blogs (login/sign-up, self-management accounts, calendar & bookings, PayFast/PayU/PayPal from R4,000), and E-commerce Websites (catalogues, shopping cart, Visa/Mastercard checkout, and customer database from R5,000).'
+    ],
+    features: [
+      {
+        title: '1. Business Services (From R3,000)',
+        description: '10 page website including listicle page and blog page, SEO, AEO & GEO optimised, WhatsApp integration, and 1 year full tech support.',
+        iconName: 'Globe'
+      },
+      {
+        title: '2. Blogs (From R4,000)',
+        description: 'Login / Sign up authentication, users self-management accounts, calendar and bookings, PayFast/PayU/PayPal gateway, and 1 year tech support.',
+        iconName: 'Clock'
+      },
+      {
+        title: '3. E-commerce Website (From R5,000)',
+        description: 'Online store brochures, product catalogues & pages, Visa/Mastercard cart & checkout, user accounts database, and payment gateway system.',
+        iconName: 'ShoppingBag'
+      },
+      {
+        title: 'Free Business Audit & 5.0-Star Reviews',
+        description: 'Website performance score, search visibility analysis, competitor speed check, and 5 actionable growth steps backed by 47 five-star reviews.',
+        iconName: 'Star'
+      }
+    ],
+    deliverables: [
+      '10-page Business Services build with listicle page & blog page (from R3,000)',
+      'Blogs, calendar bookings & online payment packages (from R4,000)',
+      'Full E-commerce stores with Visa/Mastercard checkout (from R5,000)',
+      '1 year full tech support included across all 3 packages',
+      'Free WhatsApp business audit & 5 actionable growth steps'
+    ],
+    pricingEstimate: 'R3,000 (Business Services) · R4,000 (Blogs) · R5,000 (E-commerce)',
+    turnaroundTime: 'Under a week – 7 business days',
+    targetAudience: 'Plumbers, cleaners, electricians, contractors, booking businesses, and online shops in Rustenburg & South Africa.',
+    faq: [
+      {
+        question: 'What does a Business Services listicle + blog website include for R3,000?',
+        answer: 'It includes a 10-page custom website with a listicle page and blog page, SEO, AEO and GEO optimisation, WhatsApp integration, and 1 full year of tech support.'
+      },
+      {
+        question: 'What optional add-ons are available alongside the 3 packages?',
+        answer: 'You can add business software (CRM, Clients Portal, Project Management) at R300/month each or R999/month for all three, and social media posting at R100/month per platform.'
+      }
+    ],
+    ctaHeading: 'Want the Whole List Done for You?',
+    ctaText: 'Start with your free WhatsApp business audit or pick your fixed-price ZAR package today.'
+  },
+
   // 5. Website Cost Survey South Africa 2026
   {
     slug: 'website-cost-survey-south-africa-2026',

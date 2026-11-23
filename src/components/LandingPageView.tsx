@@ -30,6 +30,8 @@ import { LandingPageItem, LANDING_PAGES, LANDING_PAGE_CATEGORIES } from '../lib/
 import { GOOGLE_BUSINESS_PROFILE } from '../lib/googleBusinessProfile';
 import { useTheme } from '../context/ThemeContext';
 import { HeroReportsCharts } from './HeroReportsCharts';
+import { FiveThingsBookings2027Section } from './FiveThingsBookings2027Section';
+import { ListicalsSection } from './ListicalsSection';
 
 interface LandingPageViewProps {
   page: LandingPageItem;
@@ -303,6 +305,16 @@ export const LandingPageView: React.FC<LandingPageViewProps> = ({
           >
             <HeroReportsCharts standalone />
           </section>
+        )}
+
+        {/* 5 Things Small Service Business Needs Online in 2027 Interactive Breakdown */}
+        {page.slug === '5-things-small-service-business-needs-online-2027' && (
+          <FiveThingsBookings2027Section onSelectPage={onSelectPage} />
+        )}
+
+        {/* Listicals Page (3 Packages, Why Customers Choose Each, 5.0/47 Reviews, Free Audit) */}
+        {page.slug === 'listicals' && (
+          <ListicalsSection onSelectPage={onSelectPage} />
         )}
 
         {/* Detailed Overview */}
