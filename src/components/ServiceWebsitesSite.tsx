@@ -870,442 +870,6 @@ export const ServiceWebsitesSite: React.FC<ServiceWebsitesSiteProps> = ({
           </div>
         </section>
 
-        {/* HEADING 3: All Client Projects & Case Studies (CHRONOLOGICAL ORDER) */}
-        <section
-          id="portfolio"
-          className={`space-y-6 pt-6 border-t ${
-            isLight ? 'border-slate-200' : 'border-slate-800/80'
-          }`}
-        >
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-            <div className="space-y-1.5">
-              <span className="text-xs uppercase font-bold tracking-widest text-amber-500 dark:text-amber-400 block">
-                — COMPLETE PORTFOLIO & WORK ARCHIVE
-              </span>
-              <h3
-                className={`text-2xl sm:text-3xl md:text-4xl font-serif font-bold ${
-                  isLight ? 'text-slate-900' : 'text-white'
-                }`}
-              >
-                Portfolios, Use Cases and Case Studies
-              </h3>
-              <p
-                className={`text-xs sm:text-sm leading-relaxed max-w-xl ${
-                  isLight ? 'text-slate-600' : 'text-slate-300'
-                }`}
-              >
-                Every client website and custom software build delivered by Service Websites Agency,
-                organized in chronological order from latest 2026 releases.
-              </p>
-            </div>
-
-            {/* Actions: Add All Projects to Google Drive + Manage in Portal */}
-            <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
-              {onOpenDriveBackup && (
-                <button
-                  onClick={onOpenDriveBackup}
-                  className="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-300 border border-blue-500/30 transition-colors cursor-pointer"
-                  title="Add all client projects to your Google Drive folder"
-                >
-                  <HardDrive className="w-3.5 h-3.5 text-blue-500" />
-                  <span>Add All Projects to Google Drive</span>
-                </button>
-              )}
-              {onOpenProjectsView && (
-                <button
-                  onClick={onOpenProjectsView}
-                  className="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-amber-400/10 hover:bg-amber-400/20 text-amber-600 dark:text-amber-300 border border-amber-400/30 transition-colors cursor-pointer"
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Manage in Portal ({allProjects.length})</span>
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Interactive Filter & Search Controls */}
-          <div
-            className={`p-3.5 sm:p-4 rounded-2xl border space-y-3 ${
-              isLight ? 'bg-white border-slate-200 shadow-2xs' : 'bg-[#101623] border-slate-800'
-            }`}
-          >
-            {/* Top row: search + sort toggle */}
-            <div className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between">
-              <div className="relative flex-1 min-w-0">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input
-                  type="text"
-                  value={portfolioSearch}
-                  onChange={(e) => setPortfolioSearch(e.target.value)}
-                  placeholder="Search projects by name, trade, client, or deliverables..."
-                  className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs border transition-colors outline-none ${
-                    isLight
-                      ? 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500'
-                      : 'bg-slate-900 border-slate-700/80 text-white placeholder-slate-500 focus:border-amber-400'
-                  }`}
-                />
-                {portfolioSearch && (
-                  <button
-                    onClick={() => setPortfolioSearch('')}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                )}
-              </div>
-
-              {/* Sort Toggle */}
-              <button
-                onClick={() =>
-                  setSortOrder(
-                    sortOrder === 'chronological_desc'
-                      ? 'chronological_asc'
-                      : 'chronological_desc'
-                  )
-                }
-                className={`px-3 py-2 rounded-xl text-xs font-semibold border flex items-center justify-center gap-1.5 transition-colors cursor-pointer shrink-0 ${
-                  isLight
-                    ? 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-700'
-                    : 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300'
-                }`}
-                title="Toggle timeline sorting order"
-              >
-                <Calendar className="w-3.5 h-3.5 text-amber-500" />
-                <span>
-                  {sortOrder === 'chronological_desc'
-                    ? 'Latest (2026 First)'
-                    : 'Earliest First'}
-                </span>
-              </button>
-            </div>
-
-            {/* Category Filter Pills */}
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              {[
-                { id: 'all', label: `All Projects (${allProjects.length})` },
-                { id: 'trades', label: 'Trades & Construction' },
-                { id: 'ecommerce', label: 'E-Commerce & Retail' },
-                { id: 'corporate', label: 'Corporate & SaaS' },
-                { id: 'healthcare', label: 'Healthcare & Apps' },
-                { id: 'hospitality', label: 'Hospitality & Dining' },
-              ].map((tab) => {
-                const isActive = activeCategoryFilter === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveCategoryFilter(tab.id)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                      isActive
-                        ? 'bg-amber-400 text-slate-950 shadow-xs'
-                        : isLight
-                        ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                        : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800'
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Project Cards List in Chronological Order */}
-          <div className="space-y-6 pt-1">
-            {filteredProjects.length === 0 ? (
-              <div
-                className={`p-10 rounded-3xl border text-center space-y-3 ${
-                  isLight ? 'bg-white border-slate-200' : 'bg-[#101622] border-slate-800'
-                }`}
-              >
-                <Search className="w-8 h-8 text-slate-400 mx-auto" />
-                <p className="text-sm font-semibold">No projects matched your search</p>
-                <button
-                  onClick={() => {
-                    setActiveCategoryFilter('all');
-                    setPortfolioSearch('');
-                  }}
-                  className="px-4 py-2 rounded-xl bg-amber-400 text-slate-950 font-bold text-xs"
-                >
-                  Clear Filters
-                </button>
-              </div>
-            ) : (
-              filteredProjects.map((item, index) => (
-                <div
-                  key={item.id}
-                  className={`rounded-3xl border overflow-hidden transition-all group ${
-                    isLight
-                      ? 'bg-white border-slate-200 shadow-sm hover:border-slate-300'
-                      : 'bg-[#101622] border-slate-800 hover:border-slate-700'
-                  }`}
-                >
-                  {/* Image banner with overlay badges */}
-                  <div className="relative h-48 sm:h-64 overflow-hidden bg-slate-900">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-
-                    {/* Badge top-left */}
-                    <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
-                      <span className="px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] uppercase font-bold tracking-wider text-amber-300 border border-amber-400/30">
-                        {item.badge}
-                      </span>
-                      <span className="px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-[10px] font-semibold text-slate-200 border border-slate-700">
-                        {item.dateLabel}
-                      </span>
-                    </div>
-
-                    {/* Status badge top-right */}
-                    <div className="absolute top-4 right-4">
-                      <span
-                        className={`px-2.5 py-1 rounded-full backdrop-blur-md text-[10px] font-bold border flex items-center gap-1 ${
-                          item.status === 'Live & Completed'
-                            ? 'bg-emerald-950/85 text-emerald-300 border-emerald-500/40'
-                            : 'bg-blue-950/85 text-blue-300 border-blue-500/40'
-                        }`}
-                      >
-                        <span
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            item.status === 'Live & Completed'
-                              ? 'bg-emerald-400'
-                              : 'bg-blue-400 animate-pulse'
-                          }`}
-                        />
-                        <span>{item.status}</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Body Content */}
-                  <div className="p-5 sm:p-6 space-y-3.5">
-                    {/* Metadata line */}
-                    <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-wider">
-                      <span className="text-amber-500 dark:text-amber-400">
-                        {item.category}
-                      </span>
-                      <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
-                        Client: {item.clientName}
-                      </span>
-                    </div>
-
-                    <h4
-                      className={`text-lg sm:text-xl font-serif font-bold ${
-                        isLight ? 'text-slate-900' : 'text-white'
-                      }`}
-                    >
-                      {item.title}
-                    </h4>
-
-                    <p
-                      className={`text-xs sm:text-sm leading-relaxed ${
-                        isLight ? 'text-slate-600' : 'text-slate-300'
-                      }`}
-                    >
-                      {item.description}
-                    </p>
-
-                    {/* Deliverables checklist preview */}
-                    <div className="pt-1">
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mb-1.5">
-                        Deliverables & Features:
-                      </span>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                        {item.deliverables.slice(0, 4).map((deliv, dIdx) => (
-                          <div
-                            key={dIdx}
-                            className={`flex items-center gap-1.5 text-[11px] ${
-                              isLight ? 'text-slate-700' : 'text-slate-300'
-                            }`}
-                          >
-                            <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                            <span className="truncate">{deliv}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Tech Stack tags */}
-                    <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                      {item.techStack.map((tech) => (
-                        <span
-                          key={tech}
-                          className={`px-2 py-0.5 rounded-md text-[10px] font-semibold border ${
-                            isLight
-                              ? 'bg-slate-100 border-slate-200 text-slate-700'
-                              : 'bg-slate-900/80 border-slate-800 text-slate-300'
-                          }`}
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {item.budgetFormatted && (
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-400/10 text-amber-500 border border-amber-400/20">
-                          Budget: {item.budgetFormatted}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Action buttons */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200 dark:border-slate-800">
-                      <button
-                        onClick={() => setSelectedProjectModal(item)}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-500 dark:text-amber-300 hover:underline cursor-pointer"
-                      >
-                        <span>View Project Case Study & Scope →</span>
-                      </button>
-
-                      <a
-                        href={`https://wa.me/27601375180?text=Hi%20Service%20Websites,%20I'm%20interested%20in%20a%20website%20similar%20to%20your%20${encodeURIComponent(
-                          item.title
-                        )}%20project`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 transition-colors"
-                      >
-                        <MessageCircle className="w-3.5 h-3.5 fill-emerald-500 text-emerald-500" />
-                        <span>Request Similar Website Quote</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </section>
-
-        {/* HEADING 4: Google Reviews & What Our Clients Say */}
-        <section
-          id="reviews"
-          className={`space-y-6 pt-4 border-t ${
-            isLight ? 'border-slate-200' : 'border-slate-800/80'
-          }`}
-        >
-          <div className="space-y-2">
-            <span className="text-xs uppercase font-bold tracking-widest text-amber-500 dark:text-amber-400 block">
-              — GOOGLE REVIEWS & TESTIMONIALS
-            </span>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <h3
-                className={`text-2xl sm:text-4xl font-serif font-bold ${
-                  isLight ? 'text-slate-900' : 'text-white'
-                }`}
-              >
-                What Our Clients Say
-              </h3>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 self-start sm:self-auto">
-                <CheckCircle2 className="w-3.5 h-3.5 text-blue-500" />
-                Google Verified Reviews
-              </span>
-            </div>
-            <div className="flex items-center gap-2 text-sm pt-1">
-              <div className="flex items-center text-amber-400 gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-amber-400" />
-                ))}
-              </div>
-              <span className="font-bold text-slate-900 dark:text-white">5.0</span>
-              <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
-                · {GOOGLE_BUSINESS_PROFILE.reviewCount} Google verified reviews
-              </span>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href={GOOGLE_BUSINESS_PROFILE.shareUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="px-6 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-amber-400/20 transition-all cursor-pointer"
-            >
-              <span>⭐ Leave a Review on Google</span>
-            </a>
-
-            <a
-              href={GOOGLE_BUSINESS_PROFILE.shareUrl}
-              target="_blank"
-              rel="noreferrer"
-              className={`px-6 py-3 rounded-2xl border font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                isLight
-                  ? 'border-blue-300 bg-blue-50/70 hover:bg-blue-100 text-blue-900 shadow-xs'
-                  : 'border-blue-500/40 bg-blue-950/40 hover:bg-blue-900/60 text-blue-300'
-              }`}
-            >
-              <span className="w-4 h-4 rounded-full bg-white text-blue-600 flex items-center justify-center font-bold text-[10px]">
-                G
-              </span>
-              <span>View our Google Business Profile</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {/* Embedded Official Google Business Profile Card */}
-          <GoogleBusinessProfileCard variant="full" />
-
-          {/* Client review cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div
-              className={`p-5 rounded-2xl border space-y-3 ${
-                isLight ? 'bg-white border-slate-200 shadow-sm' : 'bg-[#111723] border-slate-800'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-amber-400/20 text-amber-600 dark:text-amber-300 font-bold flex items-center justify-center text-sm border border-amber-400/30">
-                  M
-                </div>
-                <div>
-                  <h4 className={`font-bold text-sm ${isLight ? 'text-slate-900' : 'text-white'}`}>
-                    MCD Group
-                  </h4>
-                  <span className={`text-[11px] ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                    Verified Google Review · Industrial Plant Automation
-                  </span>
-                </div>
-              </div>
-              <div className="flex text-amber-400 gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
-                ))}
-              </div>
-              <p className={`text-xs leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
-                Outstanding turnaround time. Our industrial electrical business saw an immediate increase in
-                calls from our local Rustenburg area within the first two weeks!
-              </p>
-            </div>
-
-            <div
-              className={`p-5 rounded-2xl border space-y-3 ${
-                isLight ? 'bg-white border-slate-200 shadow-sm' : 'bg-[#111723] border-slate-800'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-300 font-bold flex items-center justify-center text-sm border border-blue-500/30">
-                  V
-                </div>
-                <div>
-                  <h4 className={`font-bold text-sm ${isLight ? 'text-slate-900' : 'text-white'}`}>
-                    Vuka Construction
-                  </h4>
-                  <span className={`text-[11px] ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                    Verified Google Review · Concrete & Waterproofing
-                  </span>
-                </div>
-              </div>
-              <div className="flex text-amber-400 gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
-                ))}
-              </div>
-              <p className={`text-xs leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
-                Professional, clean mobile design and great ongoing support. They set up our Google
-                Business profile properly and our quote inquiries doubled across Gauteng and North West.
-              </p>
-            </div>
-          </div>
-        </section>
-
         {/* HEADING 5: Services & Expertise */}
         <section
           id="services"
@@ -1625,6 +1189,165 @@ export const ServiceWebsitesSite: React.FC<ServiceWebsitesSiteProps> = ({
           </div>
         </section>
 
+        {/* Google Reviews & What Our Clients Say (Moved above Our Location Headquarters) */}
+        <section
+          id="reviews"
+          className={`space-y-6 pt-4 border-t ${
+            isLight ? 'border-slate-200' : 'border-slate-800/80'
+          }`}
+        >
+          <div className="space-y-2">
+            <span className="text-xs uppercase font-bold tracking-widest text-amber-500 dark:text-amber-400 block">
+              — GOOGLE REVIEWS & TESTIMONIALS
+            </span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <h3
+                className={`text-2xl sm:text-4xl font-serif font-bold ${
+                  isLight ? 'text-slate-900' : 'text-white'
+                }`}
+              >
+                What Our Clients Say
+              </h3>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 self-start sm:self-auto">
+                <CheckCircle2 className="w-3.5 h-3.5 text-blue-500" />
+                Google Verified Reviews
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-sm pt-1">
+              <div className="flex items-center text-amber-400 gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-amber-400" />
+                ))}
+              </div>
+              <span className="font-bold text-slate-900 dark:text-white">5.0</span>
+              <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
+                · {GOOGLE_BUSINESS_PROFILE.reviewCount} Google verified reviews
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href={GOOGLE_BUSINESS_PROFILE.shareUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="px-6 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-amber-400/20 transition-all cursor-pointer"
+            >
+              <span>⭐ Leave a Review on Google</span>
+            </a>
+
+            <a
+              href={GOOGLE_BUSINESS_PROFILE.shareUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={`px-6 py-3 rounded-2xl border font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                isLight
+                  ? 'border-blue-300 bg-blue-50/70 hover:bg-blue-100 text-blue-900 shadow-xs'
+                  : 'border-blue-500/40 bg-blue-950/40 hover:bg-blue-900/60 text-blue-300'
+              }`}
+            >
+              <span className="w-4 h-4 rounded-full bg-white text-blue-600 flex items-center justify-center font-bold text-[10px]">
+                G
+              </span>
+              <span>View our Google Business Profile</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          {/* Embedded Official Google Business Profile Card */}
+          <GoogleBusinessProfileCard variant="full" />
+
+          {/* Client review cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            <div
+              className={`p-5 rounded-2xl border space-y-3 ${
+                isLight ? 'bg-white border-slate-200 shadow-sm' : 'bg-[#111723] border-slate-800'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-amber-400/20 text-amber-600 dark:text-amber-300 font-bold flex items-center justify-center text-sm border border-amber-400/30">
+                  M
+                </div>
+                <div>
+                  <h4 className={`font-bold text-sm ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                    MCD Group
+                  </h4>
+                  <span className={`text-[11px] ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                    Verified Google Review · Industrial Plant Automation
+                  </span>
+                </div>
+              </div>
+              <div className="flex text-amber-400 gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                ))}
+              </div>
+              <p className={`text-xs leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+                Outstanding turnaround time. Our industrial electrical business saw an immediate increase in
+                calls from our local Rustenburg area within the first two weeks!
+              </p>
+            </div>
+
+            <div
+              className={`p-5 rounded-2xl border space-y-3 ${
+                isLight ? 'bg-white border-slate-200 shadow-sm' : 'bg-[#111723] border-slate-800'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-300 font-bold flex items-center justify-center text-sm border border-blue-500/30">
+                  V
+                </div>
+                <div>
+                  <h4 className={`font-bold text-sm ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                    Vuka Construction
+                  </h4>
+                  <span className={`text-[11px] ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                    Verified Google Review · Concrete & Waterproofing
+                  </span>
+                </div>
+              </div>
+              <div className="flex text-amber-400 gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                ))}
+              </div>
+              <p className={`text-xs leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+                Professional, clean mobile design and great ongoing support. They set up our Google
+                Business profile properly and our quote inquiries doubled across Gauteng and North West.
+              </p>
+            </div>
+
+            <div
+              className={`p-5 rounded-2xl border space-y-3 ${
+                isLight ? 'bg-white border-slate-200 shadow-sm' : 'bg-[#111723] border-slate-800'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 font-bold flex items-center justify-center text-sm border border-emerald-500/30">
+                  S
+                </div>
+                <div>
+                  <h4 className={`font-bold text-sm ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                    Silas Home Renovator
+                  </h4>
+                  <span className={`text-[11px] ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                    Verified Google Review · Home Renovations &amp; Remodelling
+                  </span>
+                </div>
+              </div>
+              <div className="flex text-amber-400 gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                ))}
+              </div>
+              <p className={`text-xs leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+                Fast, reliable website build and great attention to detail. Homeowners now find our
+                renovation services directly on Google and message us straight on WhatsApp for quotes!
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* HEADING 8: Our Location & Interactive Map */}
         <section
           id="location"
@@ -1748,6 +1471,312 @@ export const ServiceWebsitesSite: React.FC<ServiceWebsitesSiteProps> = ({
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Complete Portfolio & Work Archive (Moved above FAQ section) */}
+        <section
+          id="portfolio"
+          className={`space-y-6 pt-6 border-t ${
+            isLight ? 'border-slate-200' : 'border-slate-800/80'
+          }`}
+        >
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+            <div className="space-y-1.5">
+              <span className="text-xs uppercase font-bold tracking-widest text-amber-500 dark:text-amber-400 block">
+                — COMPLETE PORTFOLIO & WORK ARCHIVE
+              </span>
+              <h3
+                className={`text-2xl sm:text-3xl md:text-4xl font-serif font-bold ${
+                  isLight ? 'text-slate-900' : 'text-white'
+                }`}
+              >
+                Portfolios, Use Cases and Case Studies
+              </h3>
+              <p
+                className={`text-xs sm:text-sm leading-relaxed max-w-xl ${
+                  isLight ? 'text-slate-600' : 'text-slate-300'
+                }`}
+              >
+                Every client website and custom software build delivered by Service Websites Agency,
+                organized in chronological order from latest 2026 releases.
+              </p>
+            </div>
+
+            {/* Actions: Add All Projects to Google Drive + Manage in Portal */}
+            <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+              {onOpenDriveBackup && (
+                <button
+                  onClick={onOpenDriveBackup}
+                  className="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-300 border border-blue-500/30 transition-colors cursor-pointer"
+                  title="Add all client projects to your Google Drive folder"
+                >
+                  <HardDrive className="w-3.5 h-3.5 text-blue-500" />
+                  <span>Add All Projects to Google Drive</span>
+                </button>
+              )}
+              {onOpenProjectsView && (
+                <button
+                  onClick={onOpenProjectsView}
+                  className="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-amber-400/10 hover:bg-amber-400/20 text-amber-600 dark:text-amber-300 border border-amber-400/30 transition-colors cursor-pointer"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Manage in Portal ({allProjects.length})</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Interactive Filter & Search Controls */}
+          <div
+            className={`p-3.5 sm:p-4 rounded-2xl border space-y-3 ${
+              isLight ? 'bg-white border-slate-200 shadow-2xs' : 'bg-[#101623] border-slate-800'
+            }`}
+          >
+            {/* Top row: search + sort toggle */}
+            <div className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between">
+              <div className="relative flex-1 min-w-0">
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="text"
+                  value={portfolioSearch}
+                  onChange={(e) => setPortfolioSearch(e.target.value)}
+                  placeholder="Search projects by name, trade, client, or deliverables..."
+                  className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs border transition-colors outline-none ${
+                    isLight
+                      ? 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500'
+                      : 'bg-slate-900 border-slate-700/80 text-white placeholder-slate-500 focus:border-amber-400'
+                  }`}
+                />
+                {portfolioSearch && (
+                  <button
+                    onClick={() => setPortfolioSearch('')}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+
+              {/* Sort Toggle */}
+              <button
+                onClick={() =>
+                  setSortOrder(
+                    sortOrder === 'chronological_desc'
+                      ? 'chronological_asc'
+                      : 'chronological_desc'
+                  )
+                }
+                className={`px-3 py-2 rounded-xl text-xs font-semibold border flex items-center justify-center gap-1.5 transition-colors cursor-pointer shrink-0 ${
+                  isLight
+                    ? 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-700'
+                    : 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300'
+                }`}
+                title="Toggle timeline sorting order"
+              >
+                <Calendar className="w-3.5 h-3.5 text-amber-500" />
+                <span>
+                  {sortOrder === 'chronological_desc'
+                    ? 'Latest (2026 First)'
+                    : 'Earliest First'}
+                </span>
+              </button>
+            </div>
+
+            {/* Category Filter Pills */}
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {[
+                { id: 'all', label: `All Projects (${allProjects.length})` },
+                { id: 'trades', label: 'Trades & Construction' },
+                { id: 'ecommerce', label: 'E-Commerce & Retail' },
+                { id: 'corporate', label: 'Corporate & SaaS' },
+                { id: 'healthcare', label: 'Healthcare & Apps' },
+                { id: 'hospitality', label: 'Hospitality & Dining' },
+              ].map((tab) => {
+                const isActive = activeCategoryFilter === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveCategoryFilter(tab.id)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-amber-400 text-slate-950 shadow-xs'
+                        : isLight
+                        ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Project Cards List in Chronological Order */}
+          <div className="space-y-6 pt-1">
+            {filteredProjects.length === 0 ? (
+              <div
+                className={`p-10 rounded-3xl border text-center space-y-3 ${
+                  isLight ? 'bg-white border-slate-200' : 'bg-[#101622] border-slate-800'
+                }`}
+              >
+                <Search className="w-8 h-8 text-slate-400 mx-auto" />
+                <p className="text-sm font-semibold">No projects matched your search</p>
+                <button
+                  onClick={() => {
+                    setActiveCategoryFilter('all');
+                    setPortfolioSearch('');
+                  }}
+                  className="px-4 py-2 rounded-xl bg-amber-400 text-slate-950 font-bold text-xs"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            ) : (
+              filteredProjects.map((item, index) => (
+                <div
+                  key={item.id}
+                  className={`rounded-3xl border overflow-hidden transition-all group ${
+                    isLight
+                      ? 'bg-white border-slate-200 shadow-sm hover:border-slate-300'
+                      : 'bg-[#101622] border-slate-800 hover:border-slate-700'
+                  }`}
+                >
+                  {/* Image banner with overlay badges */}
+                  <div className="relative h-48 sm:h-64 overflow-hidden bg-slate-900">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+
+                    {/* Badge top-left */}
+                    <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
+                      <span className="px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] uppercase font-bold tracking-wider text-amber-300 border border-amber-400/30">
+                        {item.badge}
+                      </span>
+                      <span className="px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-[10px] font-semibold text-slate-200 border border-slate-700">
+                        {item.dateLabel}
+                      </span>
+                    </div>
+
+                    {/* Status badge top-right */}
+                    <div className="absolute top-4 right-4">
+                      <span
+                        className={`px-2.5 py-1 rounded-full backdrop-blur-md text-[10px] font-bold border flex items-center gap-1 ${
+                          item.status === 'Live & Completed'
+                            ? 'bg-emerald-950/85 text-emerald-300 border-emerald-500/40'
+                            : 'bg-blue-950/85 text-blue-300 border-blue-500/40'
+                        }`}
+                      >
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${
+                            item.status === 'Live & Completed'
+                              ? 'bg-emerald-400'
+                              : 'bg-blue-400 animate-pulse'
+                          }`}
+                        />
+                        <span>{item.status}</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Body Content */}
+                  <div className="p-5 sm:p-6 space-y-3.5">
+                    {/* Metadata line */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-wider">
+                      <span className="text-amber-500 dark:text-amber-400">
+                        {item.category}
+                      </span>
+                      <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
+                        Client: {item.clientName}
+                      </span>
+                    </div>
+
+                    <h4
+                      className={`text-lg sm:text-xl font-serif font-bold ${
+                        isLight ? 'text-slate-900' : 'text-white'
+                      }`}
+                    >
+                      {item.title}
+                    </h4>
+
+                    <p
+                      className={`text-xs sm:text-sm leading-relaxed ${
+                        isLight ? 'text-slate-600' : 'text-slate-300'
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+
+                    {/* Deliverables checklist preview */}
+                    <div className="pt-1">
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mb-1.5">
+                        Deliverables & Features:
+                      </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                        {item.deliverables.slice(0, 4).map((deliv, dIdx) => (
+                          <div
+                            key={dIdx}
+                            className={`flex items-center gap-1.5 text-[11px] ${
+                              isLight ? 'text-slate-700' : 'text-slate-300'
+                            }`}
+                          >
+                            <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                            <span className="truncate">{deliv}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tech Stack tags */}
+                    <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                      {item.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className={`px-2 py-0.5 rounded-md text-[10px] font-semibold border ${
+                            isLight
+                              ? 'bg-slate-100 border-slate-200 text-slate-700'
+                              : 'bg-slate-900/80 border-slate-800 text-slate-300'
+                          }`}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {item.budgetFormatted && (
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-400/10 text-amber-500 border border-amber-400/20">
+                          Budget: {item.budgetFormatted}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+                      <button
+                        onClick={() => setSelectedProjectModal(item)}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-500 dark:text-amber-300 hover:underline cursor-pointer"
+                      >
+                        <span>View Project Case Study & Scope →</span>
+                      </button>
+
+                      <a
+                        href={`https://wa.me/27601375180?text=Hi%20Service%20Websites,%20I'm%20interested%20in%20a%20website%20similar%20to%20your%20${encodeURIComponent(
+                          item.title
+                        )}%20project`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 transition-colors"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5 fill-emerald-500 text-emerald-500" />
+                        <span>Request Similar Website Quote</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </section>
 

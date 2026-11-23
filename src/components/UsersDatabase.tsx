@@ -103,6 +103,11 @@ export const UsersDatabase: React.FC<UsersDatabaseProps> = ({ onOpenVerification
         setLoading(false);
       },
       (error) => {
+        if ((error as { code?: string })?.code === 'unavailable') {
+          setUsers(INITIAL_SAMPLE_USERS);
+          setLoading(false);
+          return;
+        }
         handleFirestoreError(error, OperationType.GET, 'users');
         setLoading(false);
       }

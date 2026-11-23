@@ -83,6 +83,11 @@ export const ProjectsManager: React.FC<ProjectsManagerProps> = ({ onOpenDriveBac
         setLoading(false);
       },
       (error) => {
+        if ((error as { code?: string })?.code === 'unavailable') {
+          setProjects(INITIAL_SAMPLE_PROJECTS(user?.uid || 'manager@servicewebsites.co.za'));
+          setLoading(false);
+          return;
+        }
         handleFirestoreError(error, OperationType.GET, 'projects');
         setLoading(false);
       }

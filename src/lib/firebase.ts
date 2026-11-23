@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import {
   getAuth,
   GoogleAuthProvider,
@@ -20,23 +20,27 @@ import {
 } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+// Initialize Firebase safely (reuse existing instance if already initialized)
+export const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
 const firestoreDatabaseId: string | undefined =
   (firebaseConfig as { firestoreDatabaseId?: string }).firestoreDatabaseId || undefined;
 
-// CRITICAL: initializeFirestore with the explicit database ID and auto-detect long polling
-// prevents 10-second WebChannel timeouts in mobile browsers and strict iframe proxies.
+// CRITICAL: Use experimentalForceLongPolling in browser environments so proxies,
+// mobile carriers, and iframe sandboxes never buffer WebChannel streams for 10s.
 function createFirestoreInstance(): Firestore {
+  const settings =
+    typeof window !== 'undefined'
+      ? {
+          experimentalForceLongPolling: true,
+          experimentalLongPollingOptions: { timeoutSeconds: 15 },
+        }
+      : {};
+
   try {
     return firestoreDatabaseId
-      ? initializeFirestore(
-          app,
-          { experimentalAutoDetectLongPolling: true },
-          firestoreDatabaseId
-        )
-      : initializeFirestore(app, { experimentalAutoDetectLongPolling: true });
+      ? initializeFirestore(app, settings, firestoreDatabaseId)
+      : initializeFirestore(app, settings);
   } catch {
     return firestoreDatabaseId
       ? getFirestore(app, firestoreDatabaseId)
@@ -73,11 +77,26 @@ export const getCachedDriveAccessToken = (): string | null => {
 
 // Startup Firestore connection check
 export async function testConnection() {
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+    return;
+  }
+
   try {
     await getDocFromServer(doc(db, 'test', 'connection'));
   } catch (error) {
     if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.error('Please check your Firebase configuration.');
+      // Retry once after a brief delay in case browser network stack was still warming up
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      try {
+        await getDocFromServer(doc(db, 'test', 'connection'));
+      } catch (retryError) {
+        if (
+          retryError instanceof Error &&
+          retryError.message.includes('the client is offline')
+        ) {
+          console.error('Please check your Firebase configuration.');
+        }
+      }
     }
   }
 }
