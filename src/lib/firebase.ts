@@ -1,6 +1,11 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import {
   getAuth,
+  initializeAuth,
+  indexedDBLocalPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+  browserPopupRedirectResolver,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
@@ -49,7 +54,22 @@ function createFirestoreInstance(): Firestore {
 }
 
 export const db: Firestore = createFirestoreInstance();
-export const auth = getAuth(app);
+
+function createAuthInstance() {
+  try {
+    return initializeAuth(app, {
+      persistence: [
+        indexedDBLocalPersistence,
+        browserLocalPersistence,
+        browserSessionPersistence,
+      ],
+    });
+  } catch {
+    return getAuth(app);
+  }
+}
+
+export const auth = createAuthInstance();
 
 // Clean Google Auth Provider for standard app sign-in (NO sensitive Drive scopes)
 export const googleProvider = new GoogleAuthProvider();
@@ -164,7 +184,7 @@ export async function signInWithGoogle(): Promise<{
   accessToken: string | null;
 } | null> {
   try {
-    const result = await signInWithPopup(auth, googleProvider);
+    const result = await signInWithPopup(auth, googleProvider, browserPopupRedirectResolver);
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const accessToken = credential?.accessToken || null;
     return { user: result.user, accessToken };
@@ -190,7 +210,7 @@ export async function signInWithGoogleForDrive(): Promise<{
   accessToken: string | null;
 } | null> {
   try {
-    const result = await signInWithPopup(auth, googleDriveProvider);
+    const result = await signInWithPopup(auth, googleDriveProvider, browserPopupRedirectResolver);
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const accessToken = credential?.accessToken || null;
     if (accessToken) {

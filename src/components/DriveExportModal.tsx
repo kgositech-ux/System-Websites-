@@ -105,7 +105,10 @@ export const DriveExportModal: React.FC<DriveExportModalProps> = ({
       }
       setUploadResult({
         success: false,
-        error: 'Google Sign-in was cancelled or encountered an issue: ' + (err?.message || ''),
+        error:
+          code === 'auth/network-request-failed'
+            ? 'Could not reach Google Auth from this embedded browser view. Please check your network connection or use the local JSON / CSV export below.'
+            : 'Google Sign-in was cancelled or encountered an issue: ' + (err?.message || ''),
       });
       setIsUploading(false);
       setUploadStep('');

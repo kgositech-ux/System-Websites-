@@ -1254,9 +1254,6 @@ export const ServiceWebsitesSite: React.FC<ServiceWebsitesSiteProps> = ({
             </a>
           </div>
 
-          {/* Embedded Official Google Business Profile Card */}
-          <GoogleBusinessProfileCard variant="full" />
-
           {/* Client review cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
             <div
@@ -1425,6 +1422,9 @@ export const ServiceWebsitesSite: React.FC<ServiceWebsitesSiteProps> = ({
               </div>
             </div>
           </div>
+
+          {/* Embedded Official Google Business Profile Card (Physical Office, Hours & Service Areas) */}
+          <GoogleBusinessProfileCard variant="full" />
 
           {/* Local SEO: Suburbs & Business Areas Served in Rustenburg */}
           <div className="pt-4 space-y-3">
